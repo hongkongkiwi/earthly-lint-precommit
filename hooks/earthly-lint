@@ -11,6 +11,8 @@ for file in "$@"; do
   RESULT=`earthly ls 2>&1 >/dev/null`
   if [ $? -gt 0 ]; then
     echo "$file - $RESULT"
+  else
+    echo "$file is valid"
   fi
 done
 if [ $ERRORS -gt 0 ]; then

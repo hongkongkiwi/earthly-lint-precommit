@@ -1,5 +1,5 @@
 - id: earthly-lint
-  name: Lint earthly Earthfile's
+  name: Lint earthly Earthfile
   description: This hook lints any Earthfiles in the project using earthly ls
   entry: hooks/earthly-lint
   language: script
