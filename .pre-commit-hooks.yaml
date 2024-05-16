@@ -1,0 +1,8 @@
+- id: earthly-lint
+  name: Lint earthly Earthfile's
+  description: This hook lints any Earthfiles in the project using earthly ls
+  entry: hooks/earthly-lint
+  language: script
+  stages: [pre-commit, pre-merge-commit, manual]
+  files: "Earthfile"
+  pass_filenames: true

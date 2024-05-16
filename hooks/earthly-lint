@@ -1,0 +1,19 @@
+#!/bin/bash
+command -v "earthly" >/dev/null 2>&1 \
+  || { echo >&2 "I require earthly but it's not installed.  Aborting."; exit 1; }
+
+ERRORS=0
+for file in "$@"; do
+  if [ ! -f "$file" ]; then
+    echo >&2 "ERROR: $file does not exist"; ERRORS=1; continue
+  fi
+  cd "$(dirname "$file")"
+  RESULT=`earthly ls 2>&1 >/dev/null`
+  if [ $? -gt 0 ]; then
+    echo "$file - $RESULT"
+  fi
+done
+if [ $ERRORS -gt 0 ]; then
+  exit 1
+fi
+exit 0
