@@ -1,0 +1,20 @@
+#!/bin/bash -u
+command -v "earthly" >/dev/null 2>&1 \
+  || { echo >&2 "I require earthly but it's not installed.  Aborting."; exit 255; }
+# Do some argument validation
+if [ $# -lt 2 ]; then
+  echo "args: $@"
+  echo >&2 "ERROR: must pass atleast one valid Earthfile and one +target argument"; exit 255
+fi
+if [ ! -f "$1" ] || [ "$(basename "$1")" != "Earthfile" ]; then
+  echo >&2 "ERROR: invalid Earthfile passed!"; exit 255;
+fi
+EARTHFILE="$1"; shift
+if [[ "$1" != "+"* ]] || [[ "$1" == "+" ]]; then
+  echo >&2 "ERROR: invalid target must start with + and must not be empty"; exit 255
+fi
+TARGET="$1"; shift
+# Enter the directory where our Earthfile is located
+cd "$(dirname "$EARTHFILE")"
+# Run out target with any additional arguments
+exec earthly "$TARGET" $@

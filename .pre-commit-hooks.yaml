@@ -6,3 +6,11 @@
   stages: [pre-commit, pre-merge-commit, manual]
   files: "Earthfile"
   pass_filenames: true
+- id: earthly-target
+  name: Run earthly target on Earthfile
+  description: This hook runs an earthly target on a specific Earthfile whenever a file pattern changes
+  entry: hooks/earthly-target
+  language: script
+  stages: [pre-commit, pre-merge-commit, manual]
+  files: "Earthfile"
+  pass_filenames: false
