@@ -35,11 +35,13 @@ repos:
   - repo: https://github.com/hongkongkiwi/earthly-precommit.git
     rev: v0.0.4
     hooks:
-      # Lint all earthfiles in a repo
+      # Lint all Earthfile's in a repo
       - id: earthly-lint
         verbose: false
       # Run an earthly target
       - id: earthly-target
+        # Optional rename of this id when running with pre-commit
+        name: Build code using Earthly
         # Everything after the first argument is passed directly to Earthly
         args: ["./Earthfile", "+mytarget", "--arg1=123"]
         # This is the file changed pattern that causes the target to run
