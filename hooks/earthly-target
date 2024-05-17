@@ -10,11 +10,20 @@ if [ ! -f "$1" ] || [ "$(basename "$1")" != "Earthfile" ]; then
   echo >&2 "ERROR: invalid Earthfile passed!"; exit 255;
 fi
 EARTHFILE="$1"; shift
-if [[ "$1" != "+"* ]] || [[ "$1" == "+" ]]; then
-  echo >&2 "ERROR: invalid target must start with + and must not be empty"; exit 255
+TARGET=""
+for arg in "$@"; do
+  if [[ "$arg" == "+"* ]] && [[ "$arg" != "+" ]]; then
+    TARGET="$arg"; continue
+  fi
+  if [[ "$arg" != "--"* ]]; then
+    echo >&2 "ERROR: args only supports passing a target or argument prefixed with --"; exit 255
+  fi
+done
+if [ -z "$TARGET" ]; then
+  echo >&2 "ERROR: missing earthly target in args"; exit 255
 fi
-TARGET="$1"; shift
 # Enter the directory where our Earthfile is located
 cd "$(dirname "$EARTHFILE")"
 # Run out target with any additional arguments
-exec earthly "$TARGET" $@
+echo "$@"
+exec earthly $@
