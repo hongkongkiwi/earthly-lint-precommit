@@ -26,18 +26,19 @@ To use Earthly-Lint, you need to install `pre-commit` and add this hook to your 
 
 2. Create a `.pre-commit-config.yaml` file in the root of your repository (if not already present) and add the following configuration:
 
-    ```yaml
-    - repo: git@github.com:yourusername/your-repo.git  # Replace with your repo URL
-      rev: v1.0.0  # Replace with the latest version or a specific commit SHA
-      hooks:
-        - id: earthly-lint
-    ```
+```yaml
+repos:
+  - repo: https://github.com/hongkongkiwi/earthly-lint-precommit.git
+    rev: v0.0.1
+    hooks:
+      - id: earthly-lint
+```
 
 3. Install the pre-commit hooks:
 
-    ```sh
-    pre-commit install
-    ```
+```sh
+pre-commit install
+```
 
 ## Usage
 
@@ -49,29 +50,8 @@ To manually run all pre-commit hooks on all files:
 pre-commit run --all-files
 ```
 
-## Configuration
+If you want to show verbose output (meaning show all passes as well) then add `verbose: true` to the hook config.
 
-The pre-commit hook configuration used for Earthly-Lint looks like this:
-
-```yaml
-- id: earthly-lint
-  name: Lint earthly Earthfile's
-  description: This hook lints any Earthfiles in the project using earthly ls
-  entry: hooks/earthly-lint
-  language: script
-  stages: [pre-commit, pre-merge-commit, manual]
-  files: "Earthfile"
-  pass_filenames: true
-```
-
-- id: A unique identifier for the hook.
-- name: A human-readable name for the hook.
-- description: A brief description of what the hook does.
-- entry: The command to run for the hook.
-- language: The type of script used.
-- stages: The Git stages at which the hook is run.
-- files: Specifies the files to be checked by the hook.
-- pass_filenames: Whether to pass filenames to the entry command.
 
 ## Contributing
 
