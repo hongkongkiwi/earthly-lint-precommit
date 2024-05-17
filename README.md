@@ -33,7 +33,7 @@ To use Earthly, you need to install `pre-commit` and add this hook to your `.pre
 ```yaml
 repos:
   - repo: https://github.com/hongkongkiwi/earthly-precommit.git
-    rev: v0.0.4
+    rev: v0.0.5
     hooks:
       # Lint all Earthfile's in a repo
       - id: earthly-lint
