@@ -14,6 +14,8 @@ This repository contains a custom pre-commit hook that lints Earthfiles using `e
 
 The Earthly-Lint pre-commit hook will automatically lint any Earthfiles in your project. It can be executed at various stages of your Git workflow, including pre-commit, pre-merge-commit, and manual execution.
 
+Any file named "Earthfile" will be scanned not just the root Earthfile. So this also supports projects which have IMPORT statements to include multiple Earthfile's (as supported in earthly 0.8).
+
 We do this via the `earthly ls` command and ignore the results. This command performs linting for us (although it's a tad slow compared to something like the [earthly language server](https://github.com/glehmann/earthlyls)).
 
 ## Installation
